@@ -3,13 +3,13 @@
     <AuthenticatedLayout>
         <div class="p-9">
             <div>
-                <h1>Categories Dashboard</h1>
+                <h1 class="text-xl font-bold">Categories Dashboard</h1>
             </div>
             <div class="py-6">
-                <button type="button"
-                        class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                <Link :href="route('categories.create')"
+                      class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
                     Add New Category
-                </button>
+                </Link>
             </div>
 
             <div>
@@ -60,6 +60,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head} from '@inertiajs/inertia-vue3';
+import {Link} from '@inertiajs/inertia-vue3';
 </script>
 
 <style scoped>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->string('image');
+            $table->string('video_url')->nullable();
             $table->longText('description');
             $table->string('post_url')->nullable();
             $table->string('author')->nullable();
