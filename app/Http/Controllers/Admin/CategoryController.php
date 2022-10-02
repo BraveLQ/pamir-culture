@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -36,7 +38,24 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+           'title'=>['required', 'min:3'],
+           'image'=>['required', 'image'],
+           'description'=>['required', 'min:6'],
+        ]);
+
+        if ($request->hasFile('image')){
+            $image = $request->file('image')->store('catigories');
+            Category::create([
+                'title'=>$request->title,
+                'image'=>$image,
+                'descripition'=>$request->description,
+            ]);
+
+            return Redirect::route('categories.index');
+        }
+
+        return Redirect::back();
     }
 
     /**

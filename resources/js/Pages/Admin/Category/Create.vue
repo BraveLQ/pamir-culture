@@ -6,21 +6,27 @@
                 <div class="mb-6">
                     <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Title</label>
                     <input type="text" id="title"
+                           v-model="form.title"
                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                            placeholder="Please name your category" required>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Upload
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                           for="image">Upload
                         file</label>
                     <input
                         class="h-7 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none "
-                        aria-describedby="user_avatar_help" id="user_avatar" type="file">
+                        @input="form.image = $event.target.files[0]"
+                        id="image" type="file">
                 </div>
                 <div class="py-6">
-                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Your message</label>
-                    <textarea id="message" rows="4"
+                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Your descriptions</label>
+                    <textarea v-model="form.description" type="text" id="description" rows="4"
                               class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                               placeholder="Enter your description"></textarea>
+                </div>
+                <div>
+                    <button type="submit" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Store</button>
                 </div>
             </form>
         </div>
@@ -28,15 +34,22 @@
     </AuthenticatedLayout>
 </template>
 
-<script>
+<script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head} from '@inertiajs/inertia-vue3';
-import {Link} from '@inertiajs/inertia-vue3';
+import {useForm} from '@inertiajs/inertia-vue3';
 
-export default {
-    name: "Create",
-    components: {AuthenticatedLayout}
-}
+
+
+const form = useForm({
+    title: '',
+    image: '',
+    description: '',
+});
+
+const submit = () => {
+    form.post(route('categories.store'));
+};
+
 </script>
 
 <style scoped>

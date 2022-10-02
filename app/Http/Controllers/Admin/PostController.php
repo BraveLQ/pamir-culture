@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -25,7 +26,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Post/Create');
+        $categories = Category::all();
+        return Inertia::render('Admin/Post/Create', compact('categories'));
     }
 
     /**
