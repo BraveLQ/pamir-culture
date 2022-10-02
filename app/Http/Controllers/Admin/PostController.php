@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -16,7 +19,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Post/Index');
+        $posts = PostResource::collection(Post::with('category')->get());
+        return Inertia::render('Admin/Post/Index', compact('posts'));
     }
 
     /**
@@ -38,7 +42,28 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category_id'=>['required'],
+            'title'=>['required', 'min:3'],
+            'image'=>['required', 'image'],
+            'video_url'=>['required'],
+            'description'=>['required'],
+            'post_url'=>['required'],
+            'author'=>['required'],
+            'source'=>['required'],
+        ]);
+
+        if ($request->hasFile('image')){
+            $image = $request->file('image')->store('posts');
+            Post::create([
+                'title'=>$request->title,
+                'image'=>$image,
+                'description'=>$request->description,
+            ]);
+            return Redirect::route('categories.index');
+        }
+
+        return Redirect::back();
     }
 
     /**

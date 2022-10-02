@@ -1,7 +1,7 @@
 <template>
     <AuthenticatedLayout>
 
-        <div>
+        <div class="p-8">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Edit the Category
             </h2>
@@ -59,7 +59,12 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('categories.store'));
+    Inertia.post(`/categories/${props.category.id}`, {
+        _method: "put",
+        title: form.title,
+        image: form.image,
+        description: form.description,
+    })
 };
 
 </script>

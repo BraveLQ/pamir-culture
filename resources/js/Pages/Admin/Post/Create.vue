@@ -21,10 +21,6 @@
                     <label for="video_url" class="block mb-2 text-sm font-medium text-gray-900">Video URL (optional)</label>
                     <input type="text" id="video_url" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Please enter video url" required>
                 </div>
-                <div class="mb-6">
-                    <label for="video_url" class="block mb-2 text-sm font-medium text-gray-900">Video URL (optional)</label>
-                    <input type="text" id="video_url" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Please enter video url" required>
-                </div>
                 <div class="pb-6">
                     <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Your descriptions</label>
                     <textarea type="text" id="description" rows="4"

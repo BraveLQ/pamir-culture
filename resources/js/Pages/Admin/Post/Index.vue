@@ -12,46 +12,47 @@
                 </Link>
             </div>
 
-<!--            <div>-->
+            <div>
 
-<!--                <div class="overflow-x-auto relative shadow-md sm:rounded-lg">-->
-<!--                    <table class="w-full text-sm text-left text-gray-500">-->
-<!--                        <thead class="text-xs text-gray-700 uppercase bg-orange-50">-->
-<!--                        <tr>-->
-<!--                            <th scope="col" class="py-3 px-6">-->
-<!--                                ID-->
-<!--                            </th>-->
-<!--                            <th scope="col" class="py-3 px-6">-->
-<!--                                Name-->
-<!--                            </th>-->
-<!--                            <th scope="col" class="py-3 px-6">-->
-<!--                                Description-->
-<!--                            </th>-->
-<!--                            <th scope="col" class="py-3 px-6">-->
-<!--                                <span class="sr-only">Edit</span>-->
-<!--                            </th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr class="bg-white border-b  hover:bg-gray-50">-->
-<!--                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">-->
-<!--                                Apple MacBook Pro 17"-->
-<!--                            </th>-->
-<!--                            <td class="py-4 px-6">-->
-<!--                                Sliver-->
-<!--                            </td>-->
-<!--                            <td class="py-4 px-6">-->
-<!--                                $2999-->
-<!--                            </td>-->
-<!--                            <td class="py-4 px-6 text-right">-->
-<!--                                <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
+                <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-orange-50">
+                        <tr>
+                            <th scope="col" class="py-3 px-6">
+                                ID
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                Title
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                Description
+                            </th>
+                            <th scope="col" class="py-3 px-6">
+                                <span class="sr-only">Edit</span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="post in posts.data" :key="post.id" class="bg-white border-b  hover:bg-gray-50">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                                {{ post.id }}
+                            </th>
+                            <td class="py-4 px-6">
+                                {{ post.title }}
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ post.description }}
+                            </td>
+                            <td class="py-4 px-6 text-right">
+                                <!--                                <Link :href="route('posts.edit', post.id)" class="font-medium text-blue-500 hover:text-blue-700 mr-2">Edit</Link>-->
+                                <Link :href="route('posts.destroy', post.id)" method="delete" as="button" type="button" class="font-medium text-red-500 hover:text-red-700 ml-6">Delete</Link>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-<!--            </div>-->
+            </div>
 
         </div>
     </AuthenticatedLayout>
@@ -61,6 +62,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head} from '@inertiajs/inertia-vue3';
 import {Link} from '@inertiajs/inertia-vue3';
+
+defineProps({
+    posts: Object
+})
 </script>
 
 <style scoped>

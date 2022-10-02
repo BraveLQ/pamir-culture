@@ -44,7 +44,7 @@
                                 {{ category.description }}
                             </td>
                             <td class="py-4 px-6 text-right">
-                                <Link :href="route('categories.edit', category.id)" class="font-medium text-blue-500 hover:text-blue-700 mr-2">Edit</Link>
+<!--                                <Link :href="route('categories.edit', category.id)" class="font-medium text-blue-500 hover:text-blue-700 mr-2">Edit</Link>-->
                                 <Link :href="route('categories.destroy', category.id)" method="delete" as="button" type="button" class="font-medium text-red-500 hover:text-red-700 ml-6">Delete</Link>
                             </td>
                         </tr>
