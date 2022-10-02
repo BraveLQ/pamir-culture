@@ -22,7 +22,7 @@
                                 ID
                             </th>
                             <th scope="col" class="py-3 px-6">
-                                Name
+                                Title
                             </th>
                             <th scope="col" class="py-3 px-6">
                                 Description
@@ -33,18 +33,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="bg-white border-b  hover:bg-gray-50">
+                        <tr v-for="category in categories.data" :key="category.id" class="bg-white border-b  hover:bg-gray-50">
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
-                                Apple MacBook Pro 17"
+                                {{ category.id }}
                             </th>
                             <td class="py-4 px-6">
-                                Sliver
+                                {{ category.title }}
                             </td>
                             <td class="py-4 px-6">
-                                $2999
+                                {{ category.description }}
                             </td>
                             <td class="py-4 px-6 text-right">
-                                <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                                <Link :href="route('categories.edit', category.id)" class="font-medium text-blue-500 hover:text-blue-700 mr-2">Edit</Link>
+                                <Link :href="route('categories.destroy', category.id)" method="delete" as="button" type="button" class="font-medium text-red-500 hover:text-red-700 ml-6">Delete</Link>
                             </td>
                         </tr>
                         </tbody>
@@ -61,6 +62,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head} from '@inertiajs/inertia-vue3';
 import {Link} from '@inertiajs/inertia-vue3';
+
+defineProps({
+    categories: Object
+})
 </script>
 
 <style scoped>

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -17,7 +19,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Category/Index');
+        $categories = CategoryResource::collection(Category::all());
+        return Inertia::render('Admin/Category/Index', compact('categories'));
     }
 
     /**
@@ -49,9 +52,8 @@ class CategoryController extends Controller
             Category::create([
                 'title'=>$request->title,
                 'image'=>$image,
-                'descripition'=>$request->description,
+                'description'=>$request->description,
             ]);
-
             return Redirect::route('categories.index');
         }
 
@@ -98,8 +100,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        Storage::delete($category->image);
+        $category->delete();
+
+        return Redirect::back();
     }
 }
