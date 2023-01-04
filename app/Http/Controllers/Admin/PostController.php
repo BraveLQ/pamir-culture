@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -46,10 +47,10 @@ class PostController extends Controller
             'category_id'=>['required'],
             'title'=>['required', 'min:3'],
             'image'=>['required', 'image'],
-            'video_url'=>['required'],
+            'video_url'=>['min:3'],
             'description'=>['required'],
-            'post_url'=>['required'],
-            'author'=>['required'],
+            'post_url'=>[''],
+            'author'=>[''],
             'source'=>['required'],
         ]);
 
@@ -59,8 +60,13 @@ class PostController extends Controller
                 'title'=>$request->title,
                 'image'=>$image,
                 'description'=>$request->description,
+                'category_id'=>$request->category_id,
+                'video_url'=>$request->video_url,
+                'post_url'=>$request->post_url,
+                'author'=>$request->author,
+                'source'=>$request->source,
             ]);
-            return Redirect::route('categories.index');
+            return Redirect::route('posts.index');
         }
 
         return Redirect::back();
@@ -106,8 +112,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        Storage::delete($post->image);
+        $post->delete();
+        return Redirect::back();
     }
 }
