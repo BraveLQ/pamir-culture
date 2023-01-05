@@ -41,6 +41,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
            'title'=>['required', 'min:3'],
            'image'=>['required', 'image'],
@@ -79,7 +80,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-//        return Inertia::render('Admin/Category/Edit', compact('category'));
+        return Inertia::render('Admin/Category/Edit', compact('category'));
     }
 
     /**
@@ -89,25 +90,25 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-//    public function update(Request $request, Category $category)
-//    {
-//        $image = $category -> image;
-//
-//        $request -> validate([
-//            'title'=>['required', 'min:3'],
-//            'description'=>['required', 'min:6'],
-//        ]);
-//        if ($request->hasFile('image')){
-//            Storage::delete($category->image);
-//            $image = $request -> file('image')->store('categories');
-//        }
-//        $category->update([
-//            'name' => $request->name,
-//            'image'=> $image,
-//            'description'=>$request->description,
-//        ]);
-//        return Redirect::route('skills.index');
-//    }
+    public function update(Request $request, Category $category)
+    {
+        $image = $category -> image;
+
+        $request -> validate([
+            'title'=>['required', 'min:3'],
+            'description'=>['required', 'min:6'],
+        ]);
+        if ($request->hasFile('image')){
+            Storage::delete($category->image);
+            $image = $request -> file('image')->store('categories');
+        }
+        $category->update([
+            'title' => $request->title,
+            'image'=> $image,
+            'description'=>$request->description,
+        ]);
+        return Redirect::route('categories.index');
+    }
 
     /**
      * Remove the specified resource from storage.

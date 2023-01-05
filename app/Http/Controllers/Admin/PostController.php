@@ -89,9 +89,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $categories = Category::all();
+        return Inertia::render('Admin/Post/Edit', compact('post', 'categories'));
     }
 
     /**
@@ -101,9 +102,36 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $image = $post->image;
+
+        $request->validate([
+            'category_id'=>['required'],
+            'title'=>['required', 'min:3'],
+            'video_url'=>['min:3'],
+            'description'=>['required'],
+            'post_url'=>[''],
+            'author'=>[''],
+            'source'=>['required'],
+        ]);
+        if ($request->hasFile('image')){
+            Storage::delete($post->image);
+            $image = $request -> file('image')->store('posts');
+        }
+
+        $post->update([
+            'title'=>$request->title,
+            'image'=>$image,
+            'description'=>$request->description,
+            'category_id'=>$request->category_id,
+            'video_url'=>$request->video_url,
+            'post_url'=>$request->post_url,
+            'author'=>$request->author,
+            'source'=>$request->source,
+        ]);
+        return Redirect::route('posts.index');
+
     }
 
     /**

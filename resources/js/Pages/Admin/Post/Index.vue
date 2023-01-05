@@ -44,7 +44,7 @@
                                 {{ post.description }}
                             </td>
                             <td class="py-4 px-6 text-right">
-                                <!--                                <Link :href="route('posts.edit', post.id)" class="font-medium text-blue-500 hover:text-blue-700 mr-2">Edit</Link>-->
+                                <Link :href="route('posts.edit', post.id)" class="font-medium text-blue-500 hover:text-blue-700 mr-2">Edit</Link>
                                 <Link :href="route('posts.destroy', post.id)" method="delete" as="button" type="button" class="font-medium text-red-500 hover:text-red-700 ml-6">Delete</Link>
                             </td>
                         </tr>

@@ -46,6 +46,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {useForm} from '@inertiajs/inertia-vue3';
+import {Inertia} from '@inertiajs/inertia'
 
 
 const props = defineProps({
