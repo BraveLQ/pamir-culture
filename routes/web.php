@@ -36,4 +36,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::resource('/posts', PostController::class);
 });
 
+Route::get('/public', function (){
+    return Inertia::render('Public/PublicLayout');
+});
+
 require __DIR__.'/auth.php';
